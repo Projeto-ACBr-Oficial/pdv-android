@@ -1,0 +1,12 @@
+<resources>
+
+    <style name="Base.Theme.OpenStore" parent="Theme.Material3.DayNight.NoActionBar">
+
+    </style>
+
+    <style name="Theme.OpenStore" parent="Base.Theme.OpenStore">
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorAccent">@color/main_color</item>
+        <item name="android:colorEdgeEffect">@color/main_color</item>
+    </style>
+</resources>

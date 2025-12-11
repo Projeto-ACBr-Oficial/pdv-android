@@ -1,0 +1,24 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Lanches"
+    },
+    {
+      "id": "2",
+      "name": "Acompanhamentos"
+    },
+    {
+      "id": "3",
+      "name": "Bebidas"
+    },
+    {
+      "id": "4",
+      "name": "Sobremesas"
+    },
+    {
+      "id": "5",
+      "name": "Molhos Extras"
+    }
+  ]
+}

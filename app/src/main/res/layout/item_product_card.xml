@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/card_color"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="12dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/iv_product_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/imagem_do_produto"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/img_placeholder" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            style="@style/StoreLabel.Strong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAlignment="center"
+            tools:text="Nome do Produto Ficou Longo Demais Para Uma Linha Só" />
+
+        <TextView
+            android:id="@+id/tv_product_price"
+            style="@style/StoreTitle.Medium.Gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textAlignment="center"
+            tools:text="R$ 99,99" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_remove_item"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/rounded_button_background"
+                android:contentDescription="@string/remover_item"
+                android:paddingHorizontal="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_remove"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_item_quantity"
+                style="@style/StoreTitle.Medium.Gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/initial_value"
+                android:textAlignment="center" />
+
+            <ImageButton
+                android:id="@+id/btn_add_item"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/rounded_button_background"
+                android:contentDescription="@string/adicionar_item"
+                android:paddingHorizontal="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_add"
+                app:tint="@color/white" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

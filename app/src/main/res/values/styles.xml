@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="StoreTextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_color</item>
+        <item name="hintTextColor">@color/text_input_color</item>
+        <item name="android:textColorHint">@color/text_input_color</item>
+    </style>
+
+    <style name="StoreChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipCornerRadius">8dp</item>
+        <item name="chipBackgroundColor">@color/chip_color</item>
+        <item name="android:textColor">@color/text_chip_color</item>
+        <item name="chipStrokeColor">@color/light_gray</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:minHeight">36dp</item>
+    </style>
+
+    <style name="StoreMainButton">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:backgroundTint">@color/main_color</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="StoreTransparentDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimAmount">0.0</item>
+    </style>
+
+    <style name="StoreTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="StoreTitle.Small">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="StoreTitle.Small.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="StoreTitle.Medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="StoreTitle.Medium.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="StoreTitle.Large">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="StoreTitle.Large.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="StoreTitle.Large.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="StoreTitle.ExtraLarge">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="StoreBody">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="StoreBody.Small">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="StoreBody.Medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="StoreBody.Large">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="StoreBody.ExtraLarge">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="StoreLabel">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="StoreLabel.Strong">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="StoreLabel.Strong.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="StoreMainCard">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="strokeColor">@color/main_color</item>
+    </style>
+</resources>
