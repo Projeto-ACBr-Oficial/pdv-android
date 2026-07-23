@@ -1,0 +1,14 @@
+build/
+build-cov/
+cmake-build-*/
+.idea/
+.vscode/
+*.o
+*.a
+*.so
+*.dylib
+*.gcda
+*.gcno
+*.gcov
+.DS_Store
+compile_commands.json

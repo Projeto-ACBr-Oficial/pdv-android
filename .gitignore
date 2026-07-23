@@ -13,3 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# C++ tax core build trees
+native/pdv-tax-cpp/build/
+native/pdv-tax-cpp/build-cov/
+**/*.gcov

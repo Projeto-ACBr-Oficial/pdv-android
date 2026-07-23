@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PDVTax C++ — Migração ACBr</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #121a2b;
+      --text: #e8eefc;
+      --muted: #9fb0d0;
+      --accent: #3dd6c6;
+      --accent2: #6ea8fe;
+      --ok: #3dd68c;
+      --warn: #f0b429;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #1a2744, var(--bg));
+      color: var(--text);
+      line-height: 1.55;
+    }
+    header {
+      padding: 3rem 1.5rem 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header h1 { margin: 0 0 .5rem; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    header p { color: var(--muted); max-width: 70ch; }
+    .badge {
+      display: inline-block;
+      background: rgba(61, 214, 198, .15);
+      color: var(--accent);
+      border: 1px solid rgba(61, 214, 198, .35);
+      border-radius: 999px;
+      padding: .25rem .75rem;
+      font-size: .85rem;
+      margin-bottom: 1rem;
+    }
+    main { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+    }
+    .card h3 { margin: 0 0 .4rem; font-size: 1rem; color: var(--accent2); }
+    .metric { font-size: 1.8rem; font-weight: 700; color: var(--ok); }
+    section { margin-top: 2.2rem; }
+    h2 { font-size: 1.35rem; border-left: 4px solid var(--accent); padding-left: .7rem; }
+    table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+    th, td { text-align: left; padding: .55rem .4rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+    th { color: var(--muted); font-weight: 600; }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    a { color: var(--accent2); }
+    footer { color: var(--muted); font-size: .85rem; margin-top: 3rem; }
+    .cta {
+      display: inline-block;
+      margin-top: 1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #041018;
+      text-decoration: none;
+      font-weight: 700;
+      padding: .7rem 1.1rem;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">Meeting presentation · Migration success</div>
+    <h1>PDVTax C++: migração dos módulos fiscais ACBr para C++</h1>
+    <p>
+      Resumo executivo da pesquisa sobre o projeto ACBr (PDV Android / NFC-e)
+      e da entrega de uma biblioteca C++17 com comportamento alinhado aos algoritmos
+      de validação, chave de acesso, tributos e montagem de NFC-e.
+    </p>
+    <a class="cta" href="presentation.html">Abrir apresentação em slides →</a>
+  </header>
+  <main>
+    <section class="grid">
+      <div class="card"><h3>Testes automatizados</h3><div class="metric">176</div><p>checks · 0 falhas</p></div>
+      <div class="card"><h3>Cobertura de linhas (src)</h3><div class="metric">100%</div><p>gcov em src/*.cpp</p></div>
+      <div class="card"><h3>Warnings</h3><div class="metric">0</div><p>-Wall -Wextra -Wpedantic -Werror</p></div>
+      <div class="card"><h3>Demo NFC-e</h3><div class="metric">OK</div><p>XML 4.00 + QR URL</p></div>
+    </section>
+
+    <section>
+      <h2>Escopo migrado (PDV tax core)</h2>
+      <table>
+        <thead><tr><th>Módulo C++</th><th>Origem ACBr</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td>validador</td><td>ACBrValidador</td><td class="ok">Portado</td></tr>
+          <tr><td>chave_acesso</td><td>ACBrDFeUtil.GerarChaveAcesso</td><td class="ok">Portado</td></tr>
+          <tr><td>impostos</td><td>ICMS/PIS/COFINS/IBPT</td><td class="ok">Portado</td></tr>
+          <tr><td>nfce</td><td>PCNNFe / layout 4.00</td><td class="ok">Portado (XML unsigned)</td></tr>
+          <tr><td>c_api</td><td>ACBrLib style</td><td class="ok">NDK-ready</td></tr>
+          <tr><td>Assinar / SEFAZ HTTP</td><td>OpenSSL + WebServices</td><td class="warn">Próxima onda (OpenSSL 3.x)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Por que não o monorepo inteiro?</h2>
+      <div class="card">
+        <p>
+          O mirror ACBr contém ~2.100 units Pascal e milhares de linhas só em NFe/SAT/WebServices.
+          A migração completa exigiria meses e certificados reais. Esta entrega prioriza o
+          <strong>núcleo fiscal de PDV</strong> com paridade de comportamento verificável por testes.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Como provar</h2>
+      <pre style="background:#0a101c;padding:1rem;border-radius:10px;overflow:auto">cmake -S . -B build &amp;&amp; cmake --build build -j
+./build/pdvtax_tests
+./build/pdvtax_demo</pre>
+    </section>
+
+    <footer>
+      PDVTax C++ · Referência de pesquisa: MirrorProjetoACBr/ACBr · Documento gerado para GitHub Pages
+    </footer>
+  </main>
+</body>
+</html>
