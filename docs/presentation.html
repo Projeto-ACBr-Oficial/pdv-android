@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PDVTax C++ — Meeting Slides</title>
+  <style>
+    :root { --bg:#0b1220; --fg:#eef3ff; --muted:#9fb0d0; --a:#3dd6c6; --b:#6ea8fe; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--fg);
+      font-family: "Segoe UI", system-ui, sans-serif; }
+    .deck { height: 100%; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .slide {
+      display: none; width: min(960px, 100%); min-height: 520px;
+      background: linear-gradient(160deg, #121a2b, #0d1524);
+      border: 1px solid rgba(255,255,255,.08); border-radius: 18px;
+      padding: 2.5rem 2.8rem; box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    .slide.active { display: block; animation: in .35s ease; }
+    @keyframes in { from { opacity: 0; transform: translateY(8px);} to { opacity:1; transform:none;} }
+    h1 { font-size: 2.2rem; margin: 0 0 1rem; }
+    h2 { font-size: 1.7rem; margin: 0 0 1rem; color: var(--b); }
+    p, li { font-size: 1.15rem; color: var(--fg); line-height: 1.5; }
+    .muted { color: var(--muted); }
+    ul { padding-left: 1.2rem; }
+    .nav {
+      position: fixed; bottom: 1.2rem; left: 0; right: 0;
+      display: flex; justify-content: center; gap: .6rem; align-items: center;
+    }
+    button {
+      background: #1a2744; color: var(--fg); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px; padding: .55rem 1rem; cursor: pointer; font-size: 1rem;
+    }
+    button:hover { border-color: var(--a); }
+    .progress { color: var(--muted); min-width: 4rem; text-align: center; }
+    .tag { color: var(--a); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; font-size: .8rem; }
+    .big { font-size: 3rem; font-weight: 800; color: var(--a); }
+    table { width: 100%; border-collapse: collapse; }
+    td, th { text-align: left; padding: .45rem 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <section class="slide active">
+      <div class="tag">Meeting · Fase 1–3</div>
+      <h1>Migração bem-sucedida dos módulos fiscais PDV ACBr → C++</h1>
+      <p class="muted">Pesquisa profunda no monorepo ACBr, port comportamental do núcleo tributário, demo NFC-e e testes com cobertura ≥ 90%.</p>
+    </section>
+
+    <section class="slide">
+      <h2>1. O que é o ACBr no contexto PDV Android?</h2>
+      <ul>
+        <li>Framework Pascal de automação comercial brasileira</li>
+        <li>ACBrLibNFe Android: AAR + JNA + <code>.so</code> nativo</li>
+        <li>Fluxo PDV: validar → tributar → chave → XML NFC-e → assinar → SEFAZ</li>
+        <li>C++ existente no ACBr: apenas <strong>loader</strong> da DLL, não reescrita</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>2. Descobertas da pesquisa</h2>
+      <ul>
+        <li>~2.100 units <code>.pas</code>; só ACBrDFe ~1.074</li>
+        <li>OpenSSL 1.1.1w e LibXML2 2.9.10 no tree Android (legados)</li>
+        <li>Demos Pascal/Android não executáveis neste host (sem FPC/SDK + .so)</li>
+        <li>Fixtures de <code>ACBrValidadorTest</code> serviram de ouro para o port</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>3. Estratégia de migração</h2>
+      <ul>
+        <li><strong>Não</strong> reescrever o monorepo inteiro de uma vez</li>
+        <li>Portar o <em>tax core</em> PDV com paridade de algoritmos</li>
+        <li>C++17 zero-deps runtime + C API estilo ACBrLib</li>
+        <li>Próxima onda: OpenSSL 3.x (Assinar) + libcurl (SEFAZ)</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>4. Módulos entregues</h2>
+      <table>
+        <tr><th>Módulo</th><th>Prova</th></tr>
+        <tr><td>Validador CPF/CNPJ/UF/CEP/GTIN/IE</td><td>Fixtures ACBr</td></tr>
+        <tr><td>Chave de acesso 44 dígitos</td><td>DV Modulo11</td></tr>
+        <tr><td>ICMS / PIS / COFINS / IBPT / IBS-CBS</td><td>Unit tests</td></tr>
+        <tr><td>NFC-e XML 4.00 + QR URL</td><td>Demo showcase</td></tr>
+        <tr><td>C API NDK</td><td>test_c_api</td></tr>
+      </table>
+    </section>
+
+    <section class="slide">
+      <h2>5. Resultados mensuráveis</h2>
+      <p class="big">176 / 0</p>
+      <p>checks / failures</p>
+      <p class="big" style="font-size:2.4rem;margin-top:1rem">100% · 0 warnings</p>
+      <p class="muted">Cobertura de linhas em <code>src/*.cpp</code> · build com <code>-Werror</code></p>
+    </section>
+
+    <section class="slide">
+      <h2>6. Demo showcase</h2>
+      <ul>
+        <li>Valida CPF/CNPJ de homologação</li>
+        <li>Gera chave NFC-e modelo 65</li>
+        <li>Calcula tributos (Simples / CSOSN 102)</li>
+        <li>Emite XML unsigned + URL de QR Code SP homolog</li>
+      </ul>
+      <p class="muted">Comando: <code>./build/pdvtax_demo</code></p>
+    </section>
+
+    <section class="slide">
+      <h2>7. Bibliotecas — compatibilidade</h2>
+      <ul>
+        <li>Core: <strong>somente STL + CMake</strong></li>
+        <li>ACBr Android ainda usa OpenSSL <strong>1.1.1</strong> (EOL)</li>
+        <li>Recomendação 2026: <strong>OpenSSL 3.3/3.4</strong> + <strong>libcurl 8.x</strong></li>
+        <li>Android 15: manter alinhamento 16 KB pages no NDK</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>8. Próximos passos</h2>
+      <ul>
+        <li>XML-DSig A1 com OpenSSL 3</li>
+        <li>Cliente SEFAZ (status, autorização, cancelamento)</li>
+        <li>IE completa 27 UFs (matriz ACBr)</li>
+        <li>Empacotar <code>libpdvtax.so</code> + AAR NDK</li>
+        <li>Testes diferenciais vs ACBrLib quando FPC disponível</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <div class="tag">Obrigado</div>
+      <h1>Perguntas?</h1>
+      <p class="muted">Repositório: pasta <code>pdv-tax-cpp</code> · Docs: <code>docs/</code> · Pesquisa: <code>research/</code></p>
+      <p><a href="index.html" style="color:var(--a)">← Voltar ao resumo</a></p>
+    </section>
+  </div>
+
+  <div class="nav">
+    <button type="button" id="prev">← Anterior</button>
+    <span class="progress" id="prog">1 / 1</span>
+    <button type="button" id="next">Próximo →</button>
+  </div>
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    let i = 0;
+    const prog = document.getElementById('prog');
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+      prog.textContent = (i + 1) + ' / ' + slides.length;
+    }
+    document.getElementById('prev').onclick = () => show(i - 1);
+    document.getElementById('next').onclick = () => show(i + 1);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') show(i + 1);
+      if (e.key === 'ArrowLeft') show(i - 1);
+    });
+    show(0);
+  </script>
+</body>
+</html>

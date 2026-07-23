@@ -46,6 +46,7 @@ dependencies {
     implementation(project(":data:mock"))
     implementation(project(":printer:sunmi"))
     implementation(project(":acbrlib:bal"))
+    implementation(project(":acbrlib:pdvtax"))
 
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
